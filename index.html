@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NEUROS — the Cognitive Operating System. An AI OS modeled on the human brain, where memory, reasoning, attention and reflex replace files and folders." />
+  <title>NEUROS — The Cognitive Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Neural background canvas -->
+  <canvas id="neural-canvas" aria-hidden="true"></canvas>
+
+  <!-- Boot overlay -->
+  <div id="boot" class="boot">
+    <div class="boot__inner">
+      <div class="boot__logo">NEUROS<span class="boot__cursor">_</span></div>
+      <pre id="boot-log" class="boot__log"></pre>
+      <div class="boot__bar"><div id="boot-progress" class="boot__progress"></div></div>
+      <div class="boot__skip">press <kbd>esc</kbd> to skip</div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top">
+      <span class="nav__dot"></span> NEUROS
+    </a>
+    <nav class="nav__links">
+      <a href="#thesis">Thesis</a>
+      <a href="#regions">Architecture</a>
+      <a href="#console">Console</a>
+      <a href="#waitlist">Access</a>
+    </nav>
+    <a href="#waitlist" class="btn btn--ghost nav__cta">Request access</a>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__tag">v0.9 · neuro-symbiotic build</div>
+      <h1 class="hero__title">
+        The operating system<br />that runs on <span class="grad">your mind's</span> architecture.
+      </h1>
+      <p class="hero__sub">
+        Every OS ever built organizes <em>files</em>. NEUROS organizes <em>cognition</em> —
+        memory, reasoning, attention and reflex, mapped one-to-one onto the regions of the
+        human brain. It's the interface layer between you and AI.
+      </p>
+      <div class="hero__actions">
+        <a href="#console" class="btn btn--primary">Boot the console →</a>
+        <a href="#thesis" class="btn btn--ghost">Read the thesis</a>
+      </div>
+      <div class="hero__stats">
+        <div><strong id="stat-synapses">0</strong><span>synapses simulated</span></div>
+        <div><strong id="stat-latency">0</strong><span>ms thought latency</span></div>
+        <div><strong>4</strong><span>cognitive regions</span></div>
+      </div>
+    </section>
+
+    <!-- Thesis -->
+    <section class="section" id="thesis">
+      <div class="section__label">01 — The thesis</div>
+      <h2 class="section__title">Computers store data. Brains <span class="grad">make meaning.</span></h2>
+      <div class="thesis-grid">
+        <p>
+          For 50 years the operating system metaphor hasn't changed: a desktop, files, folders,
+          a trash can. It mirrors a <strong>filing cabinet</strong>, not a mind. Meanwhile the
+          most powerful computer most of us touch every day — the one between our ears — runs on
+          a completely different design: associative memory, predictive reasoning, salience-based
+          attention, and trained reflex.
+        </p>
+        <p>
+          NEUROS is a thought experiment made real: <strong>what if the OS was modeled on
+          neurology instead of stationery?</strong> AI becomes the cortex. Your notes become
+          living memories that resurface when relevant. Tasks aren't files you open — they're
+          impulses the system routes for you. The machine stops being a tool you operate and
+          becomes a mind you collaborate with.
+        </p>
+      </div>
+    </section>
+
+    <!-- Brain regions / architecture -->
+    <section class="section" id="regions">
+      <div class="section__label">02 — Architecture</div>
+      <h2 class="section__title">Four regions. One coherent mind.</h2>
+      <p class="section__lede">Each NEUROS subsystem is modeled on a real structure of the brain — not as decoration, but as a design principle for how it behaves.</p>
+      <div class="regions">
+        <article class="region" data-reveal>
+          <div class="region__icon">🧩</div>
+          <h3>Hippocampus</h3>
+          <div class="region__role">Memory & recall</div>
+          <p>An associative memory that doesn't make you search. It surfaces the right note, file or conversation the moment context makes it relevant.</p>
+        </article>
+        <article class="region" data-reveal>
+          <div class="region__icon">⚡</div>
+          <h3>Cortex</h3>
+          <div class="region__role">Reasoning & language</div>
+          <p>The AI reasoning core. It plans, drafts, explains and decides — the deliberate, conscious layer you actually talk to.</p>
+        </article>
+        <article class="region" data-reveal>
+          <div class="region__icon">🎯</div>
+          <h3>Amygdala</h3>
+          <div class="region__role">Salience & priority</div>
+          <p>An attention engine that weighs what matters now. It elevates the urgent, mutes the noise, and protects your focus like an instinct.</p>
+        </article>
+        <article class="region" data-reveal>
+          <div class="region__icon">🌀</div>
+          <h3>Cerebellum</h3>
+          <div class="region__role">Reflex & automation</div>
+          <p>Learned, automatic actions. Repeat something three times and NEUROS offers to make it muscle memory — running it without being asked.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Interactive console -->
+    <section class="section" id="console">
+      <div class="section__label">03 — Live console</div>
+      <h2 class="section__title">Talk to the <span class="grad">cortex.</span></h2>
+      <p class="section__lede">A working simulation of the NEUROS shell. Type a command and watch the regions respond. Try <code>help</code> to begin.</p>
+      <div class="terminal" id="terminal">
+        <div class="terminal__bar">
+          <span class="terminal__btn red"></span>
+          <span class="terminal__btn yellow"></span>
+          <span class="terminal__btn green"></span>
+          <span class="terminal__title">neuros — cortex shell</span>
+        </div>
+        <div class="terminal__body" id="terminal-body" tabindex="0">
+          <div class="line out">NEUROS cognitive shell · type <b>help</b> for commands</div>
+        </div>
+        <div class="terminal__prompt">
+          <span class="terminal__sigil">neuros&gt;</span>
+          <input id="terminal-input" autocomplete="off" spellcheck="false" placeholder="type a command…" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Waitlist -->
+    <section class="section section--cta" id="waitlist">
+      <div class="cta-card">
+        <div class="section__label">04 — Early access</div>
+        <h2 class="section__title">Plug your mind in.</h2>
+        <p class="section__lede">NEUROS is in private neuro-beta. Join the waitlist to get a build invite and shape the first cognitive OS.</p>
+        <form id="waitlist-form" class="waitlist">
+          <input id="waitlist-email" type="email" required placeholder="you@yourmind.io" aria-label="Email address" />
+          <button class="btn btn--primary" type="submit">Request access</button>
+        </form>
+        <div id="waitlist-msg" class="waitlist__msg" role="status"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>NEUROS · a cognitive operating system — concept build</div>
+    <div class="footer__meta">mind · machine · meaning</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
