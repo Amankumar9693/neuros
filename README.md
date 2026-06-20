@@ -14,12 +14,12 @@ interface layer between a human mind and AI.
 - **Animated neural-network background** — a live canvas of synapses that reacts to your mouse.
 - **OS boot sequence** — the four cognitive regions "mount" on load (press `Esc` to skip).
 - **Live cognitive console** — a working terminal. Type real commands:
-  - `help`, `regions`, `whoami`, `clear`
+  - `help`, `regions`, `status`, `sync`, `whoami`, `clear`
   - `remember <thing>` → hippocampus
   - `think <goal>` → cortex
   - `focus` → amygdala
   - `automate` → cerebellum
-  - ↑ / ↓ cycle command history
+  - ↑ / ↓ cycle command history (and there's a hidden `sudo` easter egg)
 - **Architecture section** — the four brain-region "features" with scroll reveals.
 - **Waitlist** — validates email and saves it to `localStorage` (concept build, no server needed).
 - Fully **responsive** and respects `prefers-reduced-motion`.

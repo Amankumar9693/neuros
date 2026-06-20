@@ -4,13 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="NEUROS — the Cognitive Operating System. An AI OS modeled on the human brain, where memory, reasoning, attention and reflex replace files and folders." />
+  <meta name="theme-color" content="#05060a" />
   <title>NEUROS — The Cognitive Operating System</title>
+
+  <!-- Social sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NEUROS — The Cognitive Operating System" />
+  <meta property="og:description" content="Every OS organizes files. NEUROS organizes cognition — an AI OS modeled on the architecture of the human brain." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NEUROS — The Cognitive Operating System" />
+  <meta name="twitter:description" content="An AI OS modeled on the human brain: memory, reasoning, attention and reflex." />
+
+  <!-- Inline SVG favicon (synapse glyph) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236ae3ff'/%3E%3Cstop offset='1' stop-color='%23ff7ad9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%2305060a'/%3E%3Cg stroke='url(%23g)' stroke-width='1.4' fill='url(%23g)'%3E%3Cline x1='9' y1='10' x2='16' y2='16'/%3E%3Cline x1='23' y1='9' x2='16' y2='16'/%3E%3Cline x1='8' y1='22' x2='16' y2='16'/%3E%3Cline x1='24' y1='23' x2='16' y2='16'/%3E%3Ccircle cx='16' cy='16' r='3'/%3E%3Ccircle cx='9' cy='10' r='2'/%3E%3Ccircle cx='23' cy='9' r='2'/%3E%3Ccircle cx='8' cy='22' r='2'/%3E%3Ccircle cx='24' cy='23' r='2'/%3E%3C/g%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a href="#top" class="skip-link">Skip to content</a>
+
+  <!-- Scroll progress -->
+  <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Ambient lighting -->
+  <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
   <!-- Neural background canvas -->
   <canvas id="neural-canvas" aria-hidden="true"></canvas>
 

@@ -16,8 +16,14 @@
   const COUNT = () => Math.min(90, Math.floor((w * h) / 16000));
 
   function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     nodes = [];
     const n = COUNT();
     for (let i = 0; i < n; i++) {
@@ -173,6 +179,32 @@ function animateCount(id, target, suffix, dur) {
   items.forEach((el) => io.observe(el));
 })();
 
+/* ---------- 4b. Scroll progress + active nav ---------- */
+(function scrollUI() {
+  const bar = document.getElementById("scroll-progress");
+  const links = Array.from(document.querySelectorAll(".nav__links a"));
+  const sections = links
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
+
+  function onScroll() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if (bar) bar.style.width = pct + "%";
+
+    // active section
+    let current = sections[0];
+    for (const sec of sections) {
+      if (sec.getBoundingClientRect().top <= window.innerHeight * 0.4) current = sec;
+    }
+    links.forEach((a) => {
+      a.classList.toggle("active", current && a.getAttribute("href") === "#" + current.id);
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+
 /* ---------- 5. Interactive cognitive console ---------- */
 (function console_() {
   const body = document.getElementById("terminal-body");
@@ -207,9 +239,27 @@ function animateCount(id, target, suffix, dur) {
         "  <b>think</b> &lt;goal&gt;       — ask the cortex to reason\n" +
         "  <b>focus</b>     — engage the salience engine\n" +
         "  <b>automate</b>  — turn a habit into reflex\n" +
+        "  <b>status</b>    — system vitals\n" +
+        "  <b>sync</b>      — re-sync the neuro-symbiotic link\n" +
         "  <b>whoami</b>    — who NEUROS thinks you are\n" +
         "  <b>clear</b>     — wipe the screen"
       );
+    },
+    status() {
+      print(
+        "<b>NEUROS vitals</b>\n" +
+        "  cortex ......... <b>online</b>   load 31%\n" +
+        "  hippocampus .... <b>online</b>   142,884 memories\n" +
+        "  amygdala ....... <b>online</b>   focus shield up\n" +
+        "  cerebellum ..... <b>online</b>   17 active reflexes\n" +
+        "  thought latency  <b>12 ms</b>"
+      );
+    },
+    sync() {
+      print("re-syncing neuro-symbiotic link ... <b>100%</b>. you and the machine are in phase.");
+    },
+    sudo() {
+      print("<span class='err'>permission denied:</span> you can't sudo a mind. ask it nicely instead. 🧠");
     },
     regions() {
       print(
