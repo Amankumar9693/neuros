@@ -139,22 +139,24 @@ kbd { background: var(--bg-2); border: 1px solid var(--line); border-radius: 5px
   align-items: center;
   gap: 1.5rem;
   padding: 1rem clamp(1rem, 5vw, 3rem);
-  /* Almost clear at the top of the page... */
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  background: rgba(5, 6, 10, 0.2);
+  /* Fully clear at the top of the page... */
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  background: rgba(5, 6, 10, 0);
   border-bottom: 1px solid transparent;
-  transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease,
-    background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: backdrop-filter 0.35s ease, -webkit-backdrop-filter 0.35s ease,
+    background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* ...frosted glass once the page is scrolled. */
+/* ...heavy frosted glass once the page is scrolled — strong enough that any
+   text passing behind the bar becomes an unreadable blur. */
 .nav.scrolled {
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  background: rgba(5, 6, 10, 0.65);
-  border-bottom-color: var(--line);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(36px) saturate(150%);
+  -webkit-backdrop-filter: blur(36px) saturate(150%);
+  background: rgba(10, 13, 22, 0.45);
+  border-bottom: 1px solid rgba(150, 170, 230, 0.28);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
 }
 .nav__brand {
   font-weight: 700;
