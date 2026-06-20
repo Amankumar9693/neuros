@@ -182,6 +182,7 @@ function animateCount(id, target, suffix, dur) {
 /* ---------- 4b. Scroll progress + active nav ---------- */
 (function scrollUI() {
   const bar = document.getElementById("scroll-progress");
+  const nav = document.getElementById("nav");
   const links = Array.from(document.querySelectorAll(".nav__links a"));
   const sections = links
     .map((a) => document.querySelector(a.getAttribute("href")))
@@ -191,6 +192,9 @@ function animateCount(id, target, suffix, dur) {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
     if (bar) bar.style.width = pct + "%";
+
+    // Frost the nav bar once the page is scrolled.
+    if (nav) nav.classList.toggle("scrolled", window.scrollY > 24);
 
     // active section
     let current = sections[0];
