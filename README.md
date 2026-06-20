@@ -26,27 +26,53 @@ interface layer between a human mind and AI.
 
 ## 🚀 Run it
 
-No build step, no install, no internet required. Just open the file:
+### Option A — instant demo (no setup)
+
+Just open the file. The `ask`/`think` commands fall back to scripted replies.
 
 ```
 Double-click  index.html
 ```
 
-Or from a terminal in this folder:
+### Option B — with a REAL AI cortex 🤖
+
+Connect the console to a live Claude model so `ask` and `think` actually think.
+One-time setup:
 
 ```bash
-# optional: serve it (nicer for some browsers)
-python -m http.server 8000
-# then visit http://localhost:8000
+# 1. install dependencies (already done if you cloned with them)
+npm install
+
+# 2. add your Anthropic API key
+#    - copy .env.example  →  .env
+#    - paste your key from https://console.anthropic.com/
+
+# 3. start the server
+npm start
 ```
+
+Then open **http://localhost:3000** and try:
+
+```
+ask how do I get my first 100 users?
+think launch a neurotech startup
+```
+
+The reply streams in live, token-by-token, from `claude-opus-4-8`.
+
+> 🔒 Your API key lives only in `.env` (which is git-ignored) and is used only by
+> the local server — it is never sent to the browser.
 
 ## 📁 Files
 
-| File          | Purpose                                        |
-|---------------|------------------------------------------------|
-| `index.html`  | Page structure & content                       |
-| `styles.css`  | Theme, layout, animations                      |
-| `app.js`      | Canvas, boot sequence, console, waitlist logic |
+| File           | Purpose                                          |
+|----------------|--------------------------------------------------|
+| `index.html`   | Page structure & content                         |
+| `styles.css`   | Theme, layout, animations                        |
+| `app.js`       | Canvas, boot sequence, console, waitlist logic   |
+| `server.js`    | Node/Express backend — streams the real AI cortex |
+| `package.json` | Dependencies & the `npm start` script            |
+| `.env.example` | Template for your private API key                |
 
 ## 🔮 Where to take it next
 

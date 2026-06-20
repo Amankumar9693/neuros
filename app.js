@@ -222,6 +222,69 @@ function animateCount(id, target, suffix, dur) {
     body.scrollTop = body.scrollHeight;
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"]/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])
+    );
+  }
+
+  // Send a prompt to the real AI cortex (the Node backend) and stream the
+  // reply into the terminal token-by-token. Falls back gracefully when no
+  // backend is reachable (e.g. the static GitHub-hosted version).
+  async function askCortex(promptText) {
+    const line = document.createElement("div");
+    line.className = "line out";
+    line.innerHTML = "<span class='region-tag'>[cortex]</span> ";
+    const span = document.createElement("span");
+    line.appendChild(span);
+    body.appendChild(line);
+    body.scrollTop = body.scrollHeight;
+
+    // Opened directly as a file:// — there is no server to call.
+    if (location.protocol === "file:") {
+      span.innerHTML =
+        "static mode — I'm running without my reasoning core. Start the local server " +
+        "(<b>npm start</b>, see README) to talk to the real AI. For now, on “" +
+        escapeHtml(promptText) +
+        "”: I'd frame the goal, gather signals, decide, then act.";
+      return;
+    }
+
+    // Typing indicator while we wait for the first token.
+    let dots = 0;
+    span.textContent = "thinking";
+    const ticker = setInterval(() => {
+      dots = (dots + 1) % 4;
+      span.textContent = "thinking" + ".".repeat(dots);
+    }, 350);
+
+    try {
+      const resp = await fetch("/api/cortex", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: promptText }),
+      });
+      if (!resp.ok || !resp.body) throw new Error("HTTP " + resp.status);
+
+      clearInterval(ticker);
+      span.textContent = "";
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        span.textContent += decoder.decode(value, { stream: true });
+        body.scrollTop = body.scrollHeight;
+      }
+    } catch (e) {
+      clearInterval(ticker);
+      span.innerHTML =
+        "<span class='err'>cortex offline</span> — is the server running? (" +
+        escapeHtml(e.message) +
+        ")";
+    }
+  }
+
   const regionReply = {
     remember: ["<span class='region-tag'>[hippocampus]</span> indexing memory… linked to 3 related threads. I'll resurface it when context matches."],
     think:    ["<span class='region-tag'>[cortex]</span> reasoning… here's a plan: 1) frame the goal, 2) gather signals, 3) decide, 4) act. Want me to run it?"],
@@ -236,7 +299,8 @@ function animateCount(id, target, suffix, dur) {
         "  <b>help</b>      — show this list\n" +
         "  <b>regions</b>   — list the four cognitive regions\n" +
         "  <b>remember</b> &lt;thing&gt;  — store an associative memory\n" +
-        "  <b>think</b> &lt;goal&gt;       — ask the cortex to reason\n" +
+        "  <b>ask</b> &lt;question&gt;    — talk to the real AI cortex 🤖\n" +
+        "  <b>think</b> &lt;goal&gt;       — ask the cortex to reason 🤖\n" +
         "  <b>focus</b>     — engage the salience engine\n" +
         "  <b>automate</b>  — turn a habit into reflex\n" +
         "  <b>status</b>    — system vitals\n" +
@@ -273,7 +337,10 @@ function animateCount(id, target, suffix, dur) {
       print(regionReply.remember[0] + (arg ? `\n  stored: “${arg}”` : ""));
     },
     think(arg) {
-      print(regionReply.think[0] + (arg ? `\n  goal: “${arg}”` : ""));
+      return askCortex(arg || "Give me a goal to reason about.");
+    },
+    ask(arg) {
+      return askCortex(arg || "Ask me anything.");
     },
     focus() { print(regionReply.focus[0]); },
     automate() { print(regionReply.automate[0]); },

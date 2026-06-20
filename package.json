@@ -1,0 +1,14 @@
+{
+  "name": "neuros",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NEUROS — the Cognitive Operating System, with a real AI cortex powered by Claude.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.105.0",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0"
+  }
+}
